@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "discord.js": "^14.14.1"
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
   },
   "name": "sod_world_boss_scouter",
   "description": "A discord bot to help track scouting of world bosses in World of Warcraft Season of Discovery.",
   "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {},
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
