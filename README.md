@@ -48,17 +48,16 @@ StartLootSession(creatorId: userId, boss: string)
 Begins a new loot session, enabling the loot master to set the attendance of each guild, roll off items, and determine the winner. A loot session will last until the user who started the session uses the `EndLootSession` command, or 1 hour has elapsed. Note: a user cannot start another loot session if they have one open already.
 #### Params
 
-| `creatorId` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`creatorId`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `boss` |
-| --- |
-> | Type | Required | Default Value | Values||||||
-> | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-> | string | *No* | *null* |"Azuregos" | "Lethon" | "Emeriss" | "Taerar" | "Ysondre" | "Kazzak" |
+`boss`
+
+| Type | Required | Default Value | Values||||||
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| string | *No* | *null* |"Azuregos" | "Lethon" | "Emeriss" | "Taerar" | "Ysondre" | "Kazzak" |
 
 If present, the name of the boss for which the started loot session is for will appear in the embedded loot message.
 
@@ -83,23 +82,20 @@ Sets the specified guild's attendance for the user's loot session.
 **Note:** The user that sent the command must first start a loot session!
 
 #### Params
-| `creatorId` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`creatorId`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `guild` |
-| --- |
-> | Type | Required | Values
-> | :---: | :---: | :---: |
-> String | *Yes* | "SCIENCE" |
+`guild`
+| Type | Required | Values
+| :---: | :---: | :---: |
+String | *Yes* | "SCIENCE" |
 
-| `players` |
-| --- |
-> | Type | Required | 
-> | :---: | :---: |
-> | int | *Yes* |
+`players`
+| Type | Required | 
+| :---: | :---: |
+int | *Yes* |
 
 #### Example:
 ```js
@@ -116,11 +112,10 @@ EndLootSession(creatorId: userId)
 ```
 
 #### Params
-| `creatorId` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`creatorId`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
 #### Example: 
 ```js
@@ -138,17 +133,15 @@ ChangeKeyword(id: userId, newKeyword: string)
 Changes the keyword phrase that members should message to get an invite to the raid groups. This keyword will be displayed whenever a boss alert is displayed.
 
 #### Params
-| `id` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`id`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `newKeyword` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | string | *Yes* |
+`newKeyword`
+| Type | Required |
+| :---: | :---: |
+| string | *Yes* |
 
 #### Example:
 ```js
@@ -166,23 +159,20 @@ ForceBeginScouting(id: userId, scoutId: userId, layer: int)
 Manually begins a scouting shift for the specified user. If the user is already marked as scouting by the bot, the entry will be deleted and started anew. If a layer is not specified, the first layer will be assumed.
 
 #### Params
-| `id` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`id`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `scoutId` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`scoutId`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `layer` |
-| --- |
-> | Type | Required | Default |
-> | :---: | :---: | :---: |
-> | long int | *No* | 1 |
+`layer`
+| Type | Required | Default |
+| :---: | :---: | :---: |
+| long int | *No* | 1 |
 
 #### Example
 ```js
@@ -199,25 +189,22 @@ ForceBeginScouting(id: userId, scoutId: userId, layer: int)
 Manually ends a scouting shift for the specified user. If the user is not marked as scouting by the bot, this command will do nothing. If a layer is not specified, the first occurance of the scouting player will be ended.
 
 #### Params
-| `id` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`id`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `scoutId` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`scoutId`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `layer` |
-| --- |
-> | Type | Required | Default |
-> | :---: | :---: | :---: |
-> | long int | *No* | *null* |
+`layer`
+| Type | Required | Default |
+| :---: | :---: | :---: |
+| long int | *No* | *null* |
 
-#### Example:
+#### Example
 ```js
 const result = ForceEndScouting(command.user.id, GetUserIdFromDisplayName('Beverice'))
 if (result.error) then
@@ -232,25 +219,22 @@ EndAllScouting(id: userId, layer: int, boss: string)
 Manually ends all scouting shifts. If a layer is specified, only shifts on the given layer will be ended. If a boss is specified, only shifts for the given boss will be ended (you can specify "Green Dragons" to end all green dragon shifts). These two can be combined to only end shifts for a specific entity.
 
 #### Params
-| `id` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`id`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `layer` |
-| --- |
-> | Type | Required | Default Value|
-> | :---: | :---: | :---: |
-> | int | *No* | *null* |
+`layer`
+| Type | Required | Default Value|
+| :---: | :---: | :---: |
+| int | *No* | *null* |
 
-| `boss` |
-| --- |
-> | Type | Required | Default Value | Values|||||||
-> | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-> | string | *No* | *null* |"Azuregos" | "Lethon" | "Emeriss" | "Taerar" | "Ysondre" | "Kazzak" | "Green Dragons" |
+`boss`
+| Type | Required | Default Value | Values|||||||
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| string | *No* | *null* |"Azuregos" | "Lethon" | "Emeriss" | "Taerar" | "Ysondre" | "Kazzak" | "Green Dragons" |
 
-#### Example:
+#### Example
 ```js
 const result = EndAllScouting(command.user.id, 2, "Green Dragons")
 if (result.error) then
@@ -266,19 +250,17 @@ SetLayerCount(id: userId, numLayers: int)
 Changes the number of layers to the specified amount. If the number of layers is decreased, and there are players currently scouting on nonexistent layers, a warning will appear and all affected scouts will have their shifts automatically ended.
 
 #### Params
-| `id` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | long int | *Yes* |
+`id`
+| Type | Required |
+| :---: | :---: |
+| long int | *Yes* |
 
-| `numLayers` |
-| --- |
-> | Type | Required |
-> | :---: | :---: |
-> | int | *Yes* | 
+`numLayers`
+| Type | Required |
+| :---: | :---: |
+| int | *Yes* | 
 
-#### Example:
+#### Example
 ```js
 const result = SetLayerCount(command.user.id, 10)
 if (result.error) then
