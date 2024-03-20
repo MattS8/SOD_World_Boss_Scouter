@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js')
+const CommandType = require('../../config.js').Enums.CommandType
 
-function interact(interaction) 
+function interact(interaction, DiscordClient) 
 {
     interaction.reply('Bong!')
 }
@@ -14,5 +15,6 @@ function build()
 
 module.exports = {
     build: build,
-    interact: interact
+    interact: interact,
+    commandType: CommandType.SlashCommand
 }
