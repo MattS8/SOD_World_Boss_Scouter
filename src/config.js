@@ -74,7 +74,8 @@ module.exports = {
             LootGuildSelectionSelected: "btn-LootGuildSelectionSelected",
             LootGuildSelection: "slct-LootGuild",
             LootGuildAttendance: "btn-LootGuildAttendance",
-            TxtGuildAttendance: "txt-GuildAttendance"
+            TxtGuildAttendance: "txt-GuildAttendance",
+            LootBackToMainView: "btn-BackToMainView"
         }
     },
     Bosses: {

@@ -3,17 +3,23 @@ const ButtonName = Config.Enums.ButtonName;
 const CommandType = Config.Enums.CommandType;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
-async function trySendingAttendanceModal(DiscordClient, interaction, guildTag, attempt) {
+async function trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, attempt) {
     if (attempt > 3) {
         console.warn("WARNING: Tried to send modal interaction more than 3 times! Aborting...");
+        // Show mainView I guess
+        session.message?.edit?.({
+            embeds: [LootSessionViews.MainView.embed(session)],
+            components: [LootSessionViews.MainView.buttonRow],
+            ephemeral: true
+        }).catch(console.error);
         return
     }
 
     interaction.showModal(LootSessionViews.GuildAttendance.modal(Config.Guilds.filter((guild) => guild.tag === guildTag)[0]))
-    .catch((error => {
-        console.warn(`Failed sending modal... ${attempt}/3`);
-        DiscordClient.sleep(500).then(() => trySendingAttendanceModal(interaction, guildTag, attempt+1))
-    }))
+        .catch((error => {
+            console.warn(`Failed sending modal... ${attempt}/3`);
+            trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, attempt + 1)
+        }));
 }
 
 function interact(interaction, DiscordClient) {
@@ -31,10 +37,17 @@ function interact(interaction, DiscordClient) {
     } catch (e) { }
 
     switch (interaction.customId) {
+        case ButtonName.LootBackToMainView:
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
+            break;
         case ButtonName.LootGuildSelection:
             session.message?.edit?.({
                 embeds: [LootSessionViews.GuildSelection.embed],
-                components: [LootSessionViews.GuildSelection.buttonRow()],
+                components: [LootSessionViews.GuildSelection.buttonRow(), LootSessionViews.GuildSelection.backRow],
                 ephemeral: true
             }).catch(console.error);
             break;
@@ -44,7 +57,7 @@ function interact(interaction, DiscordClient) {
             session.newAttendanceInput = {
                 guildTag: guildTag
             }
-            trySendingAttendanceModal(DiscordClient, interaction, guildTag, 1);
+            trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, 1);
             break;
         case ButtonName.LootGuildAttendance:
             console.log(`INTERACTION: ${JSON.stringify(interaction, (key, value) =>
@@ -80,7 +93,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnNames: [ButtonName.LootGuildSelectionSelected, ButtonName.LootGuildSelection, ButtonName.LootGuildAttendance],
+    btnNames: [ButtonName.LootGuildSelectionSelected, ButtonName.LootGuildSelection, ButtonName.LootGuildAttendance, ButtonName.LootBackToMainView],
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

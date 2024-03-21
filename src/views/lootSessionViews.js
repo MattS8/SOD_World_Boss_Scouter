@@ -1,4 +1,4 @@
-const { EmbedBuilder, ButtonStyle, ActionRowBuilder, StringSelectMenuBuilder,  ModalBuilder, ButtonBuilder, messageLink, TextInputBuilder, Message, TextInputStyle } = require('discord.js');
+const { EmbedBuilder, ButtonStyle, ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, ButtonBuilder, messageLink, TextInputBuilder, Message, TextInputStyle } = require('discord.js');
 const Config = require('../config.js');
 const { StringSelectMenuOptionBuilder } = require('@discordjs/builders');
 const ButtonName = Config.Enums.ButtonName;
@@ -84,7 +84,7 @@ module.exports = {
                 .setTimestamp();
             for (guild of session.attendance.keys()) {
                 let sessionInfo = session.attendance.get(guild)
-                mainViewEmbed.addFields({ name: `${guild} - ${sessionInfo.players} players`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}` })
+                mainViewEmbed.addFields({ name: `<${guild}> (${sessionInfo.attendance} players)`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}` })
             }
 
             return mainViewEmbed
@@ -105,7 +105,7 @@ module.exports = {
         embed: new EmbedBuilder()
             .setColor(0xA2810D)
             .setTitle('Select a Guild')
-            .setDescription(`Note: If a guild is missing from selection, please dm ${Config.GeneralInfo.botOwner}.`)
+            .setDescription(`*If a guild is missing from selection, please dm ${Config.GeneralInfo.botOwner}.*`)
             .setTimestamp(),
         buttonRow: () => {
             const options = []
@@ -121,7 +121,14 @@ module.exports = {
                         .setPlaceholder('Choose a guild!')
                         .addOptions(options)
                 );
-        }
+        },
+        backRow: new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+            .setCustomId(ButtonName.LootBackToMainView)
+            .setLabel('Cancel')
+            .setStyle(ButtonStyle.Secondary)
+        )
     },
     GuildAttendance: {
         modal: (guild) => {
@@ -136,7 +143,7 @@ module.exports = {
                             .setCustomId(ButtonName.TxtGuildAttendance)
                     )
                 )
-        } 
+        }
     },
     ErrorMultipleSessions: {
         embed: new EmbedBuilder()
