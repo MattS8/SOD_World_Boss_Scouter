@@ -1,7 +1,7 @@
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, ButtonBuilder, messageLink, TextInputBuilder, Message, TextInputStyle } = require('discord.js');
 const Config = require('../config.js');
 const { StringSelectMenuOptionBuilder } = require('@discordjs/builders');
-const ButtonName = Config.Enums.ButtonName;
+const InputName = Config.Enums.InputName;
 const Guilds = Config.Guilds;
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId(Config.Enums.ButtonName.StartLootSession)
+                    .setCustomId(Config.Enums.InputName.StartLootSession)
                     .setLabel('Start')
                     .setStyle(ButtonStyle.Primary)
             )
@@ -28,23 +28,23 @@ module.exports = {
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Emriss)
+                    .setCustomId(InputName.SelectLootBoss_Emriss)
                     .setLabel(Config.Bosses.Emriss.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Lethon)
+                    .setCustomId(InputName.SelectLootBoss_Lethon)
                     .setLabel(Config.Bosses.Lethon.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Taerar)
+                    .setCustomId(InputName.SelectLootBoss_Taerar)
                     .setLabel(Config.Bosses.Taerar.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Ysondre)
+                    .setCustomId(InputName.SelectLootBoss_Ysondre)
                     .setLabel(Config.Bosses.Ysondre.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.EndLootSession)
+                    .setCustomId(InputName.EndLootSession)
                     .setLabel('Close')
                     .setStyle(ButtonStyle.Danger)
             )
@@ -58,19 +58,19 @@ module.exports = {
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Azuregos)
+                    .setCustomId(InputName.SelectLootBoss_Azuregos)
                     .setLabel(Config.Bosses.Azuregos.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_Kazzak)
+                    .setCustomId(InputName.SelectLootBoss_Kazzak)
                     .setLabel(Config.Bosses.Kazzak.name)
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.SelectLootBoss_GreenDragons)
+                    .setCustomId(InputName.SelectLootBoss_GreenDragons)
                     .setLabel('Green Dragon')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.EndLootSession)
+                    .setCustomId(InputName.EndLootSession)
                     .setLabel('Close')
                     .setStyle(ButtonStyle.Danger)
             )
@@ -92,11 +92,11 @@ module.exports = {
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.LootGuildSelection)
+                    .setCustomId(InputName.LootGuildSelection)
                     .setLabel('Add Guild Attendance')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId(ButtonName.EndLootSession)
+                    .setCustomId(InputName.EndLootSession)
                     .setLabel('Close')
                     .setStyle(ButtonStyle.Danger)
             )
@@ -117,7 +117,7 @@ module.exports = {
             return new ActionRowBuilder()
                 .addComponents(
                     new StringSelectMenuBuilder()
-                        .setCustomId(ButtonName.LootGuildSelectionSelected)
+                        .setCustomId(InputName.LootGuildSelectionSelected)
                         .setPlaceholder('Choose a guild!')
                         .addOptions(options)
                 );
@@ -125,7 +125,7 @@ module.exports = {
         backRow: new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-            .setCustomId(ButtonName.LootBackToMainView)
+            .setCustomId(InputName.LootBackToMainView)
             .setLabel('Cancel')
             .setStyle(ButtonStyle.Secondary)
         )
@@ -133,14 +133,14 @@ module.exports = {
     GuildAttendance: {
         modal: (guild) => {
             return new ModalBuilder()
-                .setCustomId(ButtonName.LootGuildAttendance)
+                .setCustomId(InputName.LootGuildAttendance)
                 .setTitle(`<${guild.name}> Members Present`)
                 .addComponents(
                     new ActionRowBuilder().addComponents(
                         new TextInputBuilder()
                             .setLabel("Number of Players")
                             .setStyle(TextInputStyle.Short)
-                            .setCustomId(ButtonName.TxtGuildAttendance)
+                            .setCustomId(InputName.TxtGuildAttendance)
                     )
                 )
         }

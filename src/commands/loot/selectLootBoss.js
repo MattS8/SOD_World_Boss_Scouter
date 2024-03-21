@@ -1,6 +1,6 @@
 const Config = require('../../config.js');
 const CommandType = Config.Enums.CommandType;
-const ButtonName = Config.Enums.ButtonName;
+const InputName = Config.Enums.InputName;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
 // -- Exports -- //
@@ -19,7 +19,7 @@ function interact(interaction, DiscordClient) {
     } catch (e) { }
 
     switch (interaction.customId) {
-        case ButtonName.SelectLootBoss_Azuregos:
+        case InputName.SelectLootBoss_Azuregos:
             session.boss = Config.Bosses.Azuregos.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -28,7 +28,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_GreenDragons:
+        case InputName.SelectLootBoss_GreenDragons:
             console.log(`Determining which green dragon...`);
             session.message?.edit?.({
                 embeds: [LootSessionViews.GreenDragonSelection.embed],
@@ -36,7 +36,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_Kazzak:
+        case InputName.SelectLootBoss_Kazzak:
             session.boss = Config.Bosses.Kazzak.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -45,7 +45,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_Emriss:
+        case InputName.SelectLootBoss_Emriss:
             session.boss = Config.Bosses.Emriss.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -54,7 +54,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_Taerar:
+        case InputName.SelectLootBoss_Taerar:
             session.boss = Config.Bosses.Taerar.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -63,7 +63,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_Lethon:
+        case InputName.SelectLootBoss_Lethon:
             session.boss = Config.Bosses.Lethon.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -72,7 +72,7 @@ function interact(interaction, DiscordClient) {
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.SelectLootBoss_Ysondre:
+        case InputName.SelectLootBoss_Ysondre:
             session.boss = Config.Bosses.Ysondre.name;
             console.log(`Boss set to ${session.boss}`);
             session.message?.edit?.({
@@ -87,8 +87,8 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnNames: [ButtonName.SelectLootBoss_Azuregos, ButtonName.SelectLootBoss_GreenDragons, ButtonName.SelectLootBoss_Kazzak,
-    ButtonName.SelectLootBoss_Emriss, ButtonName.SelectLootBoss_Lethon, ButtonName.SelectLootBoss_Taerar, ButtonName.SelectLootBoss_Ysondre],
+    btnNames: [InputName.SelectLootBoss_Azuregos, InputName.SelectLootBoss_GreenDragons, InputName.SelectLootBoss_Kazzak,
+    InputName.SelectLootBoss_Emriss, InputName.SelectLootBoss_Lethon, InputName.SelectLootBoss_Taerar, InputName.SelectLootBoss_Ysondre],
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

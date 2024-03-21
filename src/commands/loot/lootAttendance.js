@@ -1,5 +1,5 @@
 const Config = require('../../config.js');
-const ButtonName = Config.Enums.ButtonName;
+const InputName = Config.Enums.InputName;
 const CommandType = Config.Enums.CommandType;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
@@ -37,21 +37,21 @@ function interact(interaction, DiscordClient) {
     } catch (e) { }
 
     switch (interaction.customId) {
-        case ButtonName.LootBackToMainView:
+        case InputName.LootBackToMainView:
             session.message?.edit?.({
                 embeds: [LootSessionViews.MainView.embed(session)],
                 components: [LootSessionViews.MainView.buttonRow],
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.LootGuildSelection:
+        case InputName.LootGuildSelection:
             session.message?.edit?.({
                 embeds: [LootSessionViews.GuildSelection.embed],
                 components: [LootSessionViews.GuildSelection.buttonRow(), LootSessionViews.GuildSelection.backRow],
                 ephemeral: true
             }).catch(console.error);
             break;
-        case ButtonName.LootGuildSelectionSelected:
+        case InputName.LootGuildSelectionSelected:
             let guildTag = interaction.values[0]
             console.log(`Selected ${guildTag}!`)
             session.newAttendanceInput = {
@@ -59,7 +59,7 @@ function interact(interaction, DiscordClient) {
             }
             trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, 1);
             break;
-        case ButtonName.LootGuildAttendance:
+        case InputName.LootGuildAttendance:
             console.log(`INTERACTION: ${JSON.stringify(interaction, (key, value) =>
                 typeof value === 'bigint'
                     ? value.toString()
@@ -68,18 +68,17 @@ function interact(interaction, DiscordClient) {
 
             //Check input for valid number
             const attendanceInput = parseInt(interaction.components[0].components[0].value)
-            if (isNaN(attendanceInput)) {
+            if (!isNaN(attendanceInput)) {
+                // Record guild's attendance
+                console.log(`<${session.newAttendanceInput.guildTag}> had ${attendanceInput} members present!`);
+                session.attendance.set(session.newAttendanceInput.guildTag, { attendance: attendanceInput });
+
+                // Update roll values
+                DiscordClient.calculateRollValues(session);
+            } else {
                 console.error("Invalid number entered!");
-                return
             }
-
-            // Record guild's attendance
-            console.log(`<${session.newAttendanceInput.guildTag}> had ${attendanceInput} members present!`);
-            session.attendance.set(session.newAttendanceInput.guildTag, { attendance: attendanceInput });
-
-            // Update roll values
-            DiscordClient.calculateRollValues(session);
-
+            
             // Show updated mainView
             session.message?.edit?.({
                 embeds: [LootSessionViews.MainView.embed(session)],
@@ -93,7 +92,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnNames: [ButtonName.LootGuildSelectionSelected, ButtonName.LootGuildSelection, ButtonName.LootGuildAttendance, ButtonName.LootBackToMainView],
+    btnNames: [InputName.LootGuildSelectionSelected, InputName.LootGuildSelection, InputName.LootGuildAttendance, InputName.LootBackToMainView],
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

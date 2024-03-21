@@ -1,6 +1,6 @@
 
 const Config = require('../../config.js');
-const ButtonName = Config.Enums.ButtonName;
+const InputName = Config.Enums.InputName;
 const CommandType = Config.Enums.CommandType;
 
 function interact(interaction, DiscordClient) {
@@ -12,7 +12,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnName: ButtonName.EndLootSession,
+    btnName: InputName.EndLootSession,
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

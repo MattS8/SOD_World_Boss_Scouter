@@ -60,7 +60,7 @@ module.exports = {
             SlashCommand: 1,
             ButtonCommand: 2
         },
-        ButtonName: {
+        InputName: {
             StartLootSession: "btn-StartLootSession",
             EndLootSession: "btn-EndLootSession",
             SelectLootBoss_Kazzak: "btn-SelectLootBossKazzak",

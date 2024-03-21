@@ -1,7 +1,7 @@
 const HashMap = require('hashmap');
 const Config = require('../../config.js')
 const CommandType = Config.Enums.CommandType
-const ButtonName = Config.Enums.ButtonName
+const InputName = Config.Enums.InputName
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
 // -- Exports -- //
@@ -39,7 +39,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnName: ButtonName.StartLootSession,
+    btnName: InputName.StartLootSession,
     interact: interact,
     commandType: CommandType.ButtonCommand
 }
