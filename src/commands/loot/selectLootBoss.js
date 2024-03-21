@@ -1,95 +1,94 @@
-const HashMap = require('hashmap');
-const Config = require('../../config.js')
-const CommandType = Config.Enums.CommandType
-const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder, messageLink } = require('discord.js');
-const ButtonName = Config.Enums.ButtonName
-
-// -- Embed Messages -- //
-const greenDragonEmbed = new EmbedBuilder()
-    .setColor(0xA2810D)
-    .setTitle('Select Green Dragon')
-    .setDescription('Which green dragon is this loot is from?')
-    .setTimestamp();
-
-// -- Button Rows -- //
-const dragonSelectRow = new ActionRowBuilder()
-    .addComponents(
-        // Start
-        new ButtonBuilder()
-            .setCustomId(ButtonName.SelectLootBoss_Emriss)
-            .setLabel(Config.Bosses.Emriss.name)
-            .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-            .setCustomId(ButtonName.SelectLootBoss_Lethon)
-            .setLabel(Config.Bosses.Lethon.name)
-            .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-            .setCustomId(ButtonName.SelectLootBoss_Taerar)
-            .setLabel(Config.Bosses.Taerar.name)
-            .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-            .setCustomId(ButtonName.SelectLootBoss_Ysondre)
-            .setLabel(Config.Bosses.Ysondre.name)
-            .setStyle(ButtonStyle.Secondary),
-        new ButtonBuilder()
-            .setCustomId(ButtonName.EndLootSession)
-            .setLabel('Close')
-            .setStyle(ButtonStyle.Danger)
-    );
+const Config = require('../../config.js');
+const CommandType = Config.Enums.CommandType;
+const ButtonName = Config.Enums.ButtonName;
+const LootSessionViews = require('../../views/lootSessionViews.js');
 
 // -- Exports -- //
 function interact(interaction, DiscordClient) {
     const session = DiscordClient.LootSessions.get(interaction.user.id);
-
     if (!session) {
         console.error(`Unable to find session under user ${interaction.user.id}!`);
         return
     }
 
+    // This is a hacky workaround because I can't seem to figure out how to properly
+    // stop buttons from reporting that their "interaction failed" without sending 
+    // a dummy reply.
     try {
         interaction.reply({ content: " ", fetchReply: false }).catch(console.error)
     } catch (e) { }
 
     switch (interaction.customId) {
         case ButtonName.SelectLootBoss_Azuregos:
-            session.Boss = Config.Bosses.Azuregos.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Azuregos.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_GreenDragons:
             console.log(`Determining which green dragon...`);
             session.message?.edit?.({
-                embeds: [greenDragonEmbed],
-                components: [dragonSelectRow],
+                embeds: [LootSessionViews.GreenDragonSelection.embed],
+                components: [LootSessionViews.GreenDragonSelection.buttonRow],
                 ephemeral: true
             }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_Kazzak:
-            session.Boss = Config.Bosses.Kazzak.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Kazzak.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_Emriss:
-            session.Boss = Config.Bosses.Emriss.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Emriss.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_Taerar:
-            session.Boss = Config.Bosses.Taerar.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Taerar.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_Lethon:
-            session.Boss = Config.Bosses.Lethon.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Lethon.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         case ButtonName.SelectLootBoss_Ysondre:
-            session.Boss = Config.Bosses.Ysondre.name;
-            console.log(`Boss set to ${session.Boss}`);
+            session.boss = Config.Bosses.Ysondre.name;
+            console.log(`Boss set to ${session.boss}`);
+            session.message?.edit?.({
+                embeds: [LootSessionViews.MainView.embed(session)],
+                components: [LootSessionViews.MainView.buttonRow],
+                ephemeral: true
+            }).catch(console.error);
             break;
         default:
-            console.error(`Unable to find loot action for bust with customId ${interaction.customId}`);
+            console.error(`Unable to find loot action with customId ${interaction.customId}`);
     }
 }
 
 module.exports = {
-    btnNames: [ButtonName.SelectLootBoss_Azuregos, ButtonName.SelectLootBoss_GreenDragons, ButtonName.SelectLootBoss_Kazzak],
+    btnNames: [ButtonName.SelectLootBoss_Azuregos, ButtonName.SelectLootBoss_GreenDragons, ButtonName.SelectLootBoss_Kazzak,
+    ButtonName.SelectLootBoss_Emriss, ButtonName.SelectLootBoss_Lethon, ButtonName.SelectLootBoss_Taerar, ButtonName.SelectLootBoss_Ysondre],
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

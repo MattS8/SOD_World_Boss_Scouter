@@ -1,7 +1,7 @@
 
-const Config = require('../../config.js')
-const ButtonName = Config.Enums.ButtonName
-const CommandType = Config.Enums.CommandType
+const Config = require('../../config.js');
+const ButtonName = Config.Enums.ButtonName;
+const CommandType = Config.Enums.CommandType;
 
 function interact(interaction, DiscordClient) {
     if (DiscordClient.LootSessions?.has(interaction.user.id)) {

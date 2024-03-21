@@ -5,7 +5,7 @@ function execute(interaction, DiscordClient)
     // Find command key based on the type of interaction
     let commandName = interaction.isCommand() 
         ? interaction.commandName
-        : interaction.isButton()
+        : interaction.isButton() || interaction.isStringSelectMenu() || interaction.isModalSubmit()
             ? interaction.customId
             : null;
 
@@ -16,7 +16,7 @@ function execute(interaction, DiscordClient)
         command.interact(interaction, DiscordClient)
     }
     else {
-        console.error(`No event found for ${commandName}!\n\n${JSON.stringify(commands.keys())}`)
+        console.error(`No command found for ${commandName}!\n\n${JSON.stringify(commands.keys())}`)
     }
 }
 

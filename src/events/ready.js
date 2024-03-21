@@ -1,6 +1,7 @@
 const { Events, EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 const fs = require('fs');
 const Config = require('../config.js');
+const LootSessionViews = require('../views/lootSessionViews.js');
 require('dotenv').config();
 
 
@@ -14,25 +15,11 @@ function execute(clientInfo, DiscordClient) {
     DiscordClient.handleCommands(commandFolders, "./src/commands");
 
     if (process.env.SEND_INITIAL_MESSAGES === 'true') {
-        // Show loot session prompt message
-        const lootEmbed = new EmbedBuilder()
-            .setColor(0xA2810D)
-            .setTitle('Start a Loot Session')
-            .setDescription('Click the button below to create a new loot session and determine roll ranges for each guild based on participation.')
-            .setTimestamp();
-        const lootRow = new ActionRowBuilder()
-            .addComponents(
-                // Start
-                new ButtonBuilder()
-                    .setCustomId(Config.Enums.ButtonName.StartLootSession)
-                    .setLabel('Start')
-                    .setStyle(ButtonStyle.Primary)
-            );
         DiscordClient.channels.fetch(Config.ServerInfo.channels.loot.id)
             .then(channel => {
                 channel.send({
-                    embeds: [lootEmbed],
-                    components: [lootRow],
+                    embeds: [LootSessionViews.GetStarted.embed],
+                    components: [LootSessionViews.GetStarted.buttonRow],
                     fetchReply: false
                 });
             })

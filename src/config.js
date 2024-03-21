@@ -31,7 +31,7 @@ module.exports = {
             name: "SCIENCE",
             color: 16777215,
             sayings: [
-                "%s is scourint %b."
+                "%s is scouting %b."
             ]
         }
     ],
@@ -70,7 +70,11 @@ module.exports = {
             SelectLootBoss_Emriss: "btn-SelectLootBossEmriss",
             SelectLootBoss_Taerar: "btn-SelectLootBossTaerar",
             SelectLootBoss_Ysondre: "btn-SelectLootBossYsondre",
-            CloseLootError: "btn-CloseLootError"
+            CloseLootError: "btn-CloseLootError",
+            LootGuildSelectionSelected: "btn-LootGuildSelectionSelected",
+            LootGuildSelection: "slct-LootGuild",
+            LootGuildAttendance: "btn-LootGuildAttendance",
+            TxtGuildAttendance: "txt-GuildAttendance"
         }
     },
     Bosses: {
