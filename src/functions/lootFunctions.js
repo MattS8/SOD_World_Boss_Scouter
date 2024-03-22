@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 function calculateRollValues(session) {
-    console.log("TODO: Update guilds with proper 'rollMin' and 'rollMax' values");
     let rollRange = 1
 
     for (guildTag of session.attendance.keys()) {

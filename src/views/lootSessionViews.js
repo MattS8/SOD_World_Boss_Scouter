@@ -85,7 +85,7 @@ module.exports = {
                 .addFields({ name: '\u200B', value: '\u200B' });
             for (guild of session.attendance.keys()) {
                 let sessionInfo = session.attendance.get(guild)
-                mainViewEmbed.addFields({ name: `<${guild}> (${sessionInfo.attendance} players)`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}`, inline: true })
+                mainViewEmbed.addFields({ name: `<${guild}> (${sessionInfo.attendance} player${sessionInfo.attendance > 1 ? 's' : ''})`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}`, inline: true })
             }
 
             return mainViewEmbed
