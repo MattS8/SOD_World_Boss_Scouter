@@ -23,12 +23,12 @@ module.exports = (DiscordClient) => {
 
                     // Button Commands
                     case CommandType.ButtonCommand:
-                        if (command.btnNames) {
-                            for (btnName of command.btnNames) {
-                                DiscordClient.Commands.set(btnName, command)
+                        if (command.inputNames) {
+                            for (inputName of command.inputNames) {
+                                DiscordClient.Commands.set(inputName, command)
                             }
                         }
-                        DiscordClient.Commands.set(command.btnName, command);
+                        DiscordClient.Commands.set(command.inputName, command);
                         console.log(`\t- Initialized ${folder}/${file} (ButtonCommand)`);
                         break;
                     default:

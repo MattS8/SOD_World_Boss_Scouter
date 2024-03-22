@@ -66,7 +66,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnNames: [InputName.SelectLootBoss_Azuregos, InputName.SelectLootBoss_GreenDragons, InputName.SelectLootBoss_Kazzak,
+    inputNames: [InputName.SelectLootBoss_Azuregos, InputName.SelectLootBoss_GreenDragons, InputName.SelectLootBoss_Kazzak,
     InputName.SelectLootBoss_Emriss, InputName.SelectLootBoss_Lethon, InputName.SelectLootBoss_Taerar, InputName.SelectLootBoss_Ysondre],
     interact: interact,
     commandType: CommandType.ButtonCommand

@@ -94,7 +94,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnNames: [InputName.LootGuildSelectionSelected, InputName.LootGuildSelection, InputName.LootGuildAttendance, InputName.LootBackToMainView],
+    inputNames: [InputName.LootGuildSelectionSelected, InputName.LootGuildSelection, InputName.LootGuildAttendance, InputName.LootBackToMainView],
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

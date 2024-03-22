@@ -12,7 +12,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnName: InputName.EndLootSession,
+    inputName: InputName.EndLootSession,
     interact: interact,
     commandType: CommandType.ButtonCommand
 }

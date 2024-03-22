@@ -39,7 +39,7 @@ function interact(interaction, DiscordClient) {
 }
 
 module.exports = {
-    btnName: InputName.StartLootSession,
+    inputName: InputName.StartLootSession,
     interact: interact,
     commandType: CommandType.ButtonCommand
 }
