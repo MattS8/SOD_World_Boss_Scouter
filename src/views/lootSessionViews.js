@@ -80,11 +80,12 @@ module.exports = {
             let mainViewEmbed = new EmbedBuilder()
                 .setColor(0xA2810D)
                 .setTitle(`Loot for ${session.boss}:`)
-                .setDescription(`**Roll:** \`/roll ${session.roll}\``)
-                .setTimestamp();
+                .setDescription(`Roll Command: \`/roll ${session.roll}\``)
+                .setTimestamp()
+                .addFields({ name: '\u200B', value: '\u200B' });
             for (guild of session.attendance.keys()) {
                 let sessionInfo = session.attendance.get(guild)
-                mainViewEmbed.addFields({ name: `<${guild}> (${sessionInfo.attendance} players)`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}` })
+                mainViewEmbed.addFields({ name: `<${guild}> (${sessionInfo.attendance} players)`, value: `${sessionInfo.rollMin} - ${sessionInfo.rollMax}`, inline: true })
             }
 
             return mainViewEmbed
@@ -123,12 +124,12 @@ module.exports = {
                 );
         },
         backRow: new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-            .setCustomId(InputName.LootBackToMainView)
-            .setLabel('Cancel')
-            .setStyle(ButtonStyle.Secondary)
-        )
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId(InputName.LootBackToMainView)
+                    .setLabel('Cancel')
+                    .setStyle(ButtonStyle.Secondary)
+            )
     },
     GuildAttendance: {
         modal: (guild) => {
@@ -149,7 +150,14 @@ module.exports = {
         embed: new EmbedBuilder()
             .setColor(0xC12115)
             .setTitle('Loot Session Already Running')
-            .setDescription('You already have a loot session started. Please try closing out that session before starting a new one.')
-            .setTimestamp()
+            .setDescription('You already have a loot session started. Are you sure you want to end the previous session and start a new one?')
+            .setTimestamp(),
+        buttonRow:
+            new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId(InputName.StartNewLootSession)
+                        .setLabel('Start New Session')
+                        .setStyle(ButtonStyle.Danger))
     }
 }

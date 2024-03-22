@@ -3,23 +3,34 @@ const InputName = Config.Enums.InputName;
 const CommandType = Config.Enums.CommandType;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
+function showMainView(session) {
+    session.message?.edit?.({
+        embeds: [LootSessionViews.MainView.embed(session)],
+        components: [LootSessionViews.MainView.buttonRow],
+        ephemeral: true
+    }).catch(console.error);
+}
+
 async function trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, attempt) {
     if (attempt > 3) {
         console.warn("WARNING: Tried to send modal interaction more than 3 times! Aborting...");
         // Show mainView I guess
-        session.message?.edit?.({
-            embeds: [LootSessionViews.MainView.embed(session)],
-            components: [LootSessionViews.MainView.buttonRow],
-            ephemeral: true
-        }).catch(console.error);
+        showMainView(session);
         return
     }
 
-    interaction.showModal(LootSessionViews.GuildAttendance.modal(Config.Guilds.filter((guild) => guild.tag === guildTag)[0]))
+    const guild = Config.Guilds.filter((guild) => guild.tag === guildTag)[0]
+    if (guild != undefined) {
+        interaction.showModal(LootSessionViews.GuildAttendance.modal(guild))
         .catch((error => {
             console.warn(`Failed sending modal... ${attempt}/3`);
             trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, attempt + 1)
         }));
+    } else {
+        console.error(`Unable to find guild with tag: ${guildTag}`);
+        showMainView(session);
+    }
+
 }
 
 function interact(interaction, DiscordClient) {
@@ -38,11 +49,7 @@ function interact(interaction, DiscordClient) {
 
     switch (interaction.customId) {
         case InputName.LootBackToMainView:
-            session.message?.edit?.({
-                embeds: [LootSessionViews.MainView.embed(session)],
-                components: [LootSessionViews.MainView.buttonRow],
-                ephemeral: true
-            }).catch(console.error);
+            showMainView(session);
             break;
         case InputName.LootGuildSelection:
             session.message?.edit?.({

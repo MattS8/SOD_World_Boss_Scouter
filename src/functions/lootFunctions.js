@@ -14,6 +14,17 @@ function calculateRollValues(session) {
     session.roll = rollRange-1
 }
 
+function deleteLootSession(LootSessions, userId) {
+    const deleteSession = LootSessions.get(userId);
+    if (deleteSession != undefined) {
+        deleteSession.message?.delete?.()
+        LootSessions.remove(userId);
+    } else {
+        console.log("Not found...")
+    }
+}
+
 module.exports = (DiscordClient) => {
     DiscordClient.calculateRollValues = calculateRollValues
+    DiscordClient.deleteLootSession = deleteLootSession
 }

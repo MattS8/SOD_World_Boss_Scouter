@@ -33,6 +33,14 @@ module.exports = {
             sayings: [
                 "%s is scouting %b."
             ]
+        },
+        {
+            tag: "Fury",
+            name: "Fury",
+            color: 16779215,
+            sayings: [
+                "%s is scouting %b."
+            ]
         }
     ],
     Sheets: {
@@ -75,7 +83,8 @@ module.exports = {
             LootGuildSelection: "slct-LootGuild",
             LootGuildAttendance: "btn-LootGuildAttendance",
             TxtGuildAttendance: "txt-GuildAttendance",
-            LootBackToMainView: "btn-BackToMainView"
+            LootBackToMainView: "btn-BackToMainView",
+            StartNewLootSession: "btn-StartNewLootSession"
         }
     },
     Bosses: {
