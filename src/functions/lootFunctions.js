@@ -1,4 +1,15 @@
 const fs = require('fs');
+const HashMap = require('hashmap');
+
+function getLootSessions(DiscordClient) {
+    // Init LootSessions list
+    if (!DiscordClient.LootSessions) {
+        DiscordClient.LootSessions = new HashMap();
+        console.log("Initializing LootSessions Map...");
+    }
+
+    return DiscordClient.LootSessions;
+}
 
 function calculateRollValues(session) {
     let rollRange = 1
@@ -10,7 +21,7 @@ function calculateRollValues(session) {
         rollRange += sessionGuild.attendance;
     }
 
-    session.roll = rollRange-1
+    session.roll = rollRange - 1
 }
 
 function deleteLootSession(LootSessions, userId) {
@@ -26,4 +37,5 @@ function deleteLootSession(LootSessions, userId) {
 module.exports = (DiscordClient) => {
     DiscordClient.calculateRollValues = calculateRollValues
     DiscordClient.deleteLootSession = deleteLootSession
+    DiscordClient.getLootSessions = getLootSessions
 }

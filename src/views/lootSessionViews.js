@@ -106,7 +106,7 @@ module.exports = {
         embed: new EmbedBuilder()
             .setColor(0xA2810D)
             .setTitle('Select a Guild')
-            .setDescription(`*If a guild is missing from selection, please dm ${Config.GeneralInfo.botOwner}.*`)
+            .setDescription(`*If a guild is missing from selection, please dm ${Config.General.botOwner}.*`)
             .setTimestamp(),
         buttonRow: () => {
             const options = []
@@ -148,7 +148,7 @@ module.exports = {
     },
     ErrorMultipleSessions: {
         embed: new EmbedBuilder()
-            .setColor(0xC12115)
+            .setColor(Config.General.errorColor)
             .setTitle('Loot Session Already Running')
             .setDescription('You already have a loot session started. Are you sure you want to end the previous session and start a new one?')
             .setTimestamp(),

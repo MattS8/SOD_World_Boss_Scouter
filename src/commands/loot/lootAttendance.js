@@ -34,7 +34,7 @@ async function trySendingAttendanceModal(DiscordClient, session, interaction, gu
 }
 
 function interact(interaction, DiscordClient) {
-    const session = DiscordClient.LootSessions.get(interaction.user.id);
+    const session = DiscordClient.getLootSessions(DiscordClient).get(interaction.user.id);
     if (!session) {
         console.error(`Unable to find session under user ${interaction.user.id}!`);
         return

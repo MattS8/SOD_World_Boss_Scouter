@@ -1,11 +1,22 @@
 module.exports = {
-    GeneralInfo: {
+    General: {
         botName: "SoD Boss Scouter",
         botOwner: "WingTzu",
         version: "0.1",
-        serverTimezone: "-0700"
+        serverTimezone: "-0700",
+        dateFormats: {
+            default: {
+                "weekday": "long",
+                "month": "2-digit",
+                "day": "2-digit",
+                "hour": "numeric",
+                "minute": "2-digit",
+                "timeZone": "America/Los_Angeles"
+              }
+        },
+        errorColor: 0xC12115
     },
-    ServerInfo: {
+    Server: {
         id: "1219312419554332673",
         admins: [
             "239194797406027777"
@@ -84,33 +95,94 @@ module.exports = {
             LootGuildAttendance: "btn-LootGuildAttendance",
             TxtGuildAttendance: "txt-GuildAttendance",
             LootBackToMainView: "btn-BackToMainView",
-            StartNewLootSession: "btn-StartNewLootSession"
+            StartNewLootSession: "btn-StartNewLootSession",
+            ScoutBeginShift: "btn-ScoutBeginShift",
         }
     },
     Bosses: {
         Azuregos: {
             name: "Azuregos",
-            type: "Blue Dragon"
+            type: "Blue Dragon",
+            color: 0x0E44CE,
+            channels: {
+                scouting: '1220945685424115782',
+            },
+            btnNames: {
+                scouting: "btnScoutBossAzuregos",
+                looting: "btnSelectLootBossAzuregos",
+                stopScouting: "btnStopScoutingBossAzuregos",
+                bossSpotted: "btnBossSpottedAzuregos"
+            }
         },
         Kazzak: {
             name: "Doom Lord Kazzak",
-            type: "Demon"
+            type: "Demon",
+            color: 0x8E3434,
+            channels: {
+                scouting: '1220945723592544318',
+            },
+            btnNames: {
+                scouting: "btnScoutBossKazzak",
+                looting: "btnSelectLootBossKazzak",
+                stopScouting: "btnStopScoutingBossKazzak",
+                bossSpotted: "btnBossSpottedKazzak"
+            }
         },
         Lethon: {
             name: "Lethon",
-            type: "Green Dragon"
+            type: "Green Dragon",
+            color: 0x348E47,
+            channels: {
+                scouting: '1220945752692625488',
+            },
+            btnNames: {
+                scouting: "btnScoutBossLethon",
+                looting: "btnSelectLootBossLethon",
+                stopScouting: "btnStopScoutingBossLethon",
+                bossSpotted: "btnBossSpottedLethon"
+            }
         },
         Taerar: {
             name: "Taerar",
-            type: "Green Dragon"
+            type: "Green Dragon",
+            color: 0x7D8E34,
+            channels: {
+                scouting: '1220945782019199037',
+            },
+            btnNames: {
+                scouting: "btnScoutBossTaerar",
+                looting: "btnSelectLootBossTaerar",
+                stopScouting: "btnStopScoutingBossTaerar",
+                bossSpotted: "btnBossSpottedTaerar"
+            }
         },
         Ysondre: {
             name: "Ysondre",
-            type: "Green Dragon"
+            type: "Green Dragon",
+            color: 0x348E34,
+            channels: {
+                scouting: '1220945852525318274',
+            },
+            btnNames: {
+                scouting: "btnScoutBossYsondre",
+                looting: "btnSelectLootBossYsondre",
+                stopScouting: "btnStopScoutingBossYsondre",
+                bossSpotted: "btnBossSpottedYsondre"
+            }
         },
         Emriss: {
             name: "Emriss",
-            type: "Green Dragon"
+            type: "Green Dragon",
+            color: 0x348E6D,
+            channels: {
+                scouting: '1220945812113195129',
+            },
+            btnNames: {
+                scouting: "btnScoutBossEmriss",
+                looting: "btnSelectLootBossEmriss",
+                stopScouting: "btnStopScoutingBossEmriss",
+                bossSpotted: "btnBossSpottedEmriss"
+            }
         }
     }
 }

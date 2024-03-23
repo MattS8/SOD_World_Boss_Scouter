@@ -16,7 +16,7 @@ module.exports = (DiscordClient) => {
                     // Slash Commands
                     case CommandType.SlashCommand:
                         const commandData = command.build();
-                        DiscordClient.application.commands.create(commandData, Config.ServerInfo.id);
+                        DiscordClient.application.commands.create(commandData, Config.Server.id);
                         DiscordClient.Commands.set(commandData.name, command);
                         console.log(`\t- Initialized ${folder}/${file} (SlashCommand)`);
                         break;

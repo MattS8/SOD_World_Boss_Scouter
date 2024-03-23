@@ -4,10 +4,11 @@ const InputName = Config.Enums.InputName;
 const CommandType = Config.Enums.CommandType;
 
 function interact(interaction, DiscordClient) {
-    if (DiscordClient.LootSessions?.has(interaction.user.id)) {
-        const toDelete = DiscordClient.LootSessions.get(interaction.user.id);
+    const LootSessions = DiscordClient.getLootSessions(DiscordClient);
+    if (LootSessions?.has(interaction.user.id)) {
+        const toDelete = LootSessions.get(interaction.user.id);
         toDelete.message?.delete?.()
-        DiscordClient.LootSessions.remove(interaction.user.id);
+        LootSessions.remove(interaction.user.id);
     }
 }
 
