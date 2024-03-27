@@ -8,15 +8,14 @@ require('dotenv').config();
 
 
 function execute(clientInfo, DiscordClient) {
-    console.log(`${this.name}: ${clientInfo.user.tag} is ready to go!`);
-
-    DiscordClient.user.setActivity('SPIRIT OF AZUREGOS HAS SPAWNED!!!');
+     DiscordClient.user.setActivity('SPIRIT OF AZUREGOS HAS SPAWNED!!!');
 
     // Register Commands
     const commandFolders = fs.readdirSync("./src/commands");
     DiscordClient.handleCommands(commandFolders, "./src/commands");
 
     if (process.env.SEND_INITIAL_MESSAGES === 'true') {
+        // Loot Channel
         DiscordClient.channels.fetch(Config.Server.channels.loot.id)
             .then(channel => {
                 channel.send({
@@ -27,17 +26,41 @@ function execute(clientInfo, DiscordClient) {
             })
             .catch(console.error);
 
+        // Boss Scouting Channels
         Object.values(Config.Bosses).forEach((boss) => {
             DiscordClient.channels.fetch(boss.channels.scouting)
-            .then(channel => {
-                channel.send({
-                    embeds: [ScoutSessionViews.MainView.getEmbed(boss, DiscordClient.getScoutSessions(DiscordClient).get(boss.name))],
-                    components: [ScoutSessionViews.MainView.getButtonRow(boss)],
-                    fetchReply: false
-                });
-            })
-            .catch(console.error);
-        })
+                .then(channel => {
+                    channel.send({
+                        embeds: [ScoutSessionViews.MainView.getEmbed(boss, DiscordClient.getScoutSessions(DiscordClient).get(boss.name))],
+                        components: [ScoutSessionViews.MainView.getButtonRow(boss)],
+                        fetchReply: false
+                    }).then((message) => {
+                        DiscordClient.getScoutSessions(DiscordClient).get(boss.name).message = message
+                    });
+                })
+                .catch(console.error);
+        });
+    } else {
+        Object.values(Config.Bosses).forEach((boss) => {
+            DiscordClient.channels.fetch(boss.channels.scouting)
+                .then(channel => {
+                    channel.messages.fetch().then(msgs => {
+                        let scoutMessage = undefined
+                        msgs.map(msg => {
+                            // console.log(`\t${JSON.stringify(msg["author"]["id"])} || ${DiscordClient.user.id}`)
+                            if (msg.author.id == DiscordClient.user.id)
+                                scoutMessage = msg
+                        });
+                        // console.log(`messages: ${JSON.stringify(msgs)} || ${DiscordClient.user.id}\n\n`)
+                        // const scoutMessage = msgs.embeds?.filter(message => message.author.id == `${DiscordClient.user.id}`)[0]
+                        if (scoutMessage) {
+                            DiscordClient.getScoutSessions(DiscordClient).get(boss.name).message = scoutMessage
+                        } else {
+                            console.error(`ERROR: Unable to find initial message for scouting ${boss.name}. Did you forget to enable initial message in the .env file?`);
+                        }
+                    })
+                })
+        });
     }
 }
 

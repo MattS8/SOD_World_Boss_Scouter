@@ -9,13 +9,13 @@ module.exports = {
         embed: new EmbedBuilder()
             .setColor(0xA2810D)
             .setTitle('Start a Loot Session')
-            .setDescription('Click the button below to create a new loot session and determine roll ranges for each guild based on participation.')
-            .setTimestamp(),
+            .setDescription('Click the button below to create a new loot session and determine roll ranges for each guild based on participation.'),
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId(Config.Enums.InputName.StartLootSession)
                     .setLabel('Start')
+                    .setEmoji('\➡️')
                     .setStyle(ButtonStyle.Primary)
             )
     },
@@ -94,7 +94,7 @@ module.exports = {
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId(InputName.LootGuildSelection)
-                    .setLabel('Add Guild Attendance')
+                    .setLabel('Add Guild')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
                     .setCustomId(InputName.EndLootSession)

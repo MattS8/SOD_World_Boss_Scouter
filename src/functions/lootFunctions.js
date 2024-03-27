@@ -5,7 +5,6 @@ function getLootSessions(DiscordClient) {
     // Init LootSessions list
     if (!DiscordClient.LootSessions) {
         DiscordClient.LootSessions = new HashMap();
-        console.log("Initializing LootSessions Map...");
     }
 
     return DiscordClient.LootSessions;
@@ -30,7 +29,7 @@ function deleteLootSession(LootSessions, userId) {
         deleteSession.message?.delete?.()
         LootSessions.remove(userId);
     } else {
-        console.log("Not found...")
+        console.error(`Loot session not found for user w/id ${userId}!`);
     }
 }
 

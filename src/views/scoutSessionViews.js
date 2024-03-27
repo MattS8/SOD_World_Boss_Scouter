@@ -7,14 +7,16 @@ const Utils = require(`../util.js`);
 module.exports = {
     MainView: {
         getEmbed: (boss, scoutSession) => {
+            let descriptionText = scoutSession.currentScouts.keys().length > 0 ? `The following players are currently scouting:` : `:exclamation: *No players are currently scouting* :exclamation:`;
             let mainViewEmbed = new EmbedBuilder()
                 .setColor(boss.color)
                 .setTitle(`${boss.name} Scouting:`)
-                .setDescription(`The following players are currently scouting:`)
-                .setTimestamp();
-            for (scout of scoutSession.currentScouts.keys()) {
-                let scout = scoutSession[scout];
-                mainViewEmbed.addFields({ name: `<${scout.guild.tag}> ${scout.user.displayName}`, value: `Started at: <t:${scout.startTime}:t>`, inline: true })
+                .setDescription(descriptionText);
+            for (key of scoutSession.currentScouts.keys()) {
+                let scout = scoutSession.currentScouts.get(key);
+                // console.log(`${JSON.stringify(scout)}`)
+                console.log(`Adding ${scout.user.displayName} at time ${scout.startTime}`)
+                mainViewEmbed.addFields({ name: `<${scout.guildName}> ${scout.user.displayName}`, value: `Started at: <t:${scout.startTime}:t>`, inline: true })
             }
 
             return mainViewEmbed
@@ -24,7 +26,8 @@ module.exports = {
                 .addComponents(
                     new ButtonBuilder()
                         .setCustomId(boss.btnNames.scouting)
-                        .setLabel(`Begin Scouting ${boss.name}`)
+                        .setLabel(`Begin Scouting`)
+                        .setEmoji('\➡️')
                         .setStyle(ButtonStyle.Primary)
                 )
         }
@@ -32,19 +35,19 @@ module.exports = {
     ScoutingOptions: {
         getEmbed: (boss) => new EmbedBuilder()
             .setColor(boss.color)
-            .setTitle('Scouting Options')
-            .setDescription(`The buttons below are for scouting ${boss.name} only!`)
-            .setTimestamp(),
-            getButtonRow: (boss) => new ActionRowBuilder()
+            .setTitle(`${boss.name}: Scouting Options`),
+        getButtonRow: (boss) => new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId(boss.btnNames.bossSpotted)
                     .setLabel(`Boss Spotted!`)
+                    .setEmoji('\❗')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
                     .setCustomId(boss.btnNames.stopScouting)
-                    .setLabel(`Stop Scouting ${boss.name}`)
-                    .setStyle(ButtonStyle.Danger)
+                    .setLabel(`Stop Scouting`)
+                    .setEmoji('\🛑')
+                    .setStyle(ButtonStyle.Secondary)
             )
     },
     ErrorAlreadyScouting: {
@@ -55,11 +58,12 @@ module.exports = {
             .setTimestamp(),
 
         getButtonRow: (boss) => new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-                .setCustomId(boss.btnNames.stopScouting)
-                .setLabel(`Stop Scouting ${boss.name}`)
-                .setStyle(ButtonStyle.Danger)
-        )
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId(boss.btnNames.stopScouting)
+                    .setLabel(`Stop Scouting`)
+                    .setEmoji('\🛑')
+                    .setStyle(ButtonStyle.Secondary)
+            )
     }
 }

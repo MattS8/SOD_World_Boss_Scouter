@@ -15,6 +15,9 @@ function interact(interaction, DiscordClient) {
         console.log("TODO: save player's scout duration to google sheet. Also, log the end time in a scouting log channel.");
         scout.message?.delete?.()?.catch(console.error)
         session.currentScouts.remove(interaction.user.id);
+        DiscordClient.updateScoutMainView(DiscordClient, selectedBoss.name);
+        DiscordClient.deleteScoutErrorMessage(DiscordClient, interaction.user.id, selectedBoss.name);
+        interaction?.deferUpdate();
     } else {
         console.warn(`Tried to stop session for user ${interaction.user.displayName}, however couldn't find them in the current session for boss ${selectedBoss.name}!`);
     }

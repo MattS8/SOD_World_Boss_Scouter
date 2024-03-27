@@ -6,7 +6,6 @@ const LootSessionViews = require('../../views/lootSessionViews.js');
 
 function bossSelected(interaction, session, selectedBoss) {
     session.boss = selectedBoss;
-    console.log(`Boss set to ${session.boss}`);
     session.message?.edit?.({
         embeds: [LootSessionViews.MainView.embed(session)],
         components: [LootSessionViews.MainView.buttonRow],
@@ -36,7 +35,6 @@ function interact(interaction, DiscordClient) {
             bossSelected(interaction, session, Config.Bosses.Azuregos.name)
             break;
         case InputName.SelectLootBoss_GreenDragons:
-            console.log(`Determining which green dragon...`);
             session.message?.edit?.({
                 embeds: [LootSessionViews.GreenDragonSelection.embed],
                 components: [LootSessionViews.GreenDragonSelection.buttonRow],

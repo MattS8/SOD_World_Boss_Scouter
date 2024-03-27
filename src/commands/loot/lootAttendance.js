@@ -3,19 +3,19 @@ const InputName = Config.Enums.InputName;
 const CommandType = Config.Enums.CommandType;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
-function showMainView(session) {
+function showMainView(session, interaction) {
     session.message?.edit?.({
         embeds: [LootSessionViews.MainView.embed(session)],
         components: [LootSessionViews.MainView.buttonRow],
         ephemeral: true
-    }).then(() => { interaction.deferUpdate(); }).catch(console.error);
+    }).then(() => { interaction?.deferUpdate(); }).catch(console.error);
 }
 
 async function trySendingAttendanceModal(DiscordClient, session, interaction, guildTag, attempt) {
     if (attempt > 3) {
         console.warn("WARNING: Tried to send modal interaction more than 3 times! Aborting...");
         // Show mainView I guess
-        showMainView(session);
+        showMainView(session, interaction);
         return
     }
 
@@ -28,7 +28,7 @@ async function trySendingAttendanceModal(DiscordClient, session, interaction, gu
             }));
     } else {
         console.error(`Unable to find guild with tag: ${guildTag}`);
-        showMainView(session);
+        showMainView(session,interaction);
     }
 
 }
@@ -42,7 +42,7 @@ function interact(interaction, DiscordClient) {
 
     switch (interaction.customId) {
         case InputName.LootBackToMainView:
-            showMainView(session);
+            showMainView(session, interaction);
             break;
         case InputName.LootGuildSelection:
             session.message?.edit?.({
@@ -54,7 +54,6 @@ function interact(interaction, DiscordClient) {
             break;
         case InputName.LootGuildSelectionSelected:
             let guildTag = interaction.values[0]
-            console.log(`Selected ${guildTag}!`)
             session.newAttendanceInput = {
                 guildTag: guildTag
             }
@@ -64,7 +63,6 @@ function interact(interaction, DiscordClient) {
             //Check input for valid number
             const attendanceInput = parseInt(interaction.components[0].components[0].value)
             if (!isNaN(attendanceInput)) {
-                console.log(`<${session.newAttendanceInput.guildTag}> had ${attendanceInput} members present!`);
                 // Remove guild from attendance if 0 (or less, I guess) players attended
                 if (attendanceInput < 1) {
                     session.attendance.remove(session.newAttendanceInput.guildTag);

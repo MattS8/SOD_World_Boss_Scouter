@@ -3,10 +3,10 @@ const TimedMessages = new HashMap();
 
 function deleteMessage(id) {
     const expiredMessage = TimedMessages.get(id);
-    if (expiredMessage != undefined) {
-        expiredMessage.callback?.();
-        expiredMessage.message.delete();
-    }
+    try {
+        expiredMessage?.callback?.();
+        expiredMessage.message.delete().catch(console.error);
+    } catch (error) {}
 }
 
 module.exports = (DiscordClient) => {

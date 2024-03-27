@@ -96,7 +96,6 @@ module.exports = {
             TxtGuildAttendance: "txt-GuildAttendance",
             LootBackToMainView: "btn-BackToMainView",
             StartNewLootSession: "btn-StartNewLootSession",
-            ScoutBeginShift: "btn-ScoutBeginShift",
         }
     },
     Bosses: {

@@ -1,6 +1,6 @@
 const {Events} = require('discord.js');
 
-function execute(interaction, DiscordClient)
+async function execute(interaction, DiscordClient)
 {
     // Find command key based on the type of interaction
     let commandName = interaction.isCommand() 
@@ -9,7 +9,7 @@ function execute(interaction, DiscordClient)
             ? interaction.customId
             : null;
 
-    console.log(`${this.name}: Executing interation ${commandName}`)
+    console.log(`-- Executing interation ${commandName} --`)
     const commands = DiscordClient.Commands
     if (commands.has(commandName)) {
         const command = commands.get(commandName)
