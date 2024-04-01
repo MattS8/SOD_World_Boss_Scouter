@@ -1,8 +1,5 @@
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, ButtonBuilder, messageLink, TextInputBuilder, Message, TextInputStyle } = require('discord.js');
 const Config = require('../config.js');
-const Bosses = Config.Bosses;
-const ScoutFunctions = require(`../functions/scoutFunctions.js`);
-const Utils = require(`../util.js`);
 
 module.exports = {
     MainView: {

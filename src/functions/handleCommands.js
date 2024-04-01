@@ -1,7 +1,7 @@
 const fs = require('fs');
 const HashMap = require('hashmap');
 const Config = require('../config.js');
-const CommandType = Config.Enums.CommandType
+const CommandType = require('../constants.js').Enums.CommandType;
 
 module.exports = (DiscordClient) => {
     DiscordClient.handleCommands = async (commandFolders, path) => {

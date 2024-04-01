@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js')
-const CommandType = require('../../config.js').Enums.CommandType
+const CommandType = require('../../constants.js').Enums.CommandType
 
 function interact(interaction, DiscordClient) 
 {

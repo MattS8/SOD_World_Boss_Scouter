@@ -1,5 +1,5 @@
 const Config = require('../../config.js');
-const CommandType = Config.Enums.CommandType;
+const CommandType = require('../../constants.js').Enums.CommandType;
 const Bosses = Config.Bosses;
 const Inputnames = Object.keys(Bosses).map(key => Bosses[key].btnNames.scouting);
 const Utils = require('../../util.js');

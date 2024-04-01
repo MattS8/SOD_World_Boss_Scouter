@@ -1,7 +1,7 @@
 
 const Config = require('../../config.js');
-const InputName = Config.Enums.InputName;
-const CommandType = Config.Enums.CommandType;
+const InputName = require('../../constants.js').Enums.InputName;
+const CommandType = require('../../constants.js').Enums.CommandType;
 
 function interact(interaction, DiscordClient) {
     const LootSessions = DiscordClient.getLootSessions(DiscordClient);

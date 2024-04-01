@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
     General: {
         botName: "SoD Boss Scouter",
@@ -55,6 +57,17 @@ module.exports = {
         }
     ],
     Sheets: {
+        Credentials: {
+            installed: {
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                project_id: process.env.GOOGLE_PROJECT_ID,
+                auth_uri: "https://accounts.google.com/o/oauth2/auth",
+                token_uri: "https://oauth2.googleapis.com/token",
+                auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+                client_secret: process.env.GOOGLE_SECRET,
+                redirect_uris: ["http://localhost"]
+              }
+        },
         Attendance: {
             name: "Attendance (Test)",
             id: "13eESta2AZV2vlHbRk_s5YbDCoAPycTPjUkUTo_ltCZE",
@@ -72,30 +85,6 @@ module.exports = {
         BossLogs: {
             name: "Boss Logs (Test)",
             id: ""
-        }
-    },
-    Enums: {
-        CommandType: {
-            SlashCommand: 1,
-            ButtonCommand: 2
-        },
-        InputName: {
-            StartLootSession: "btn-StartLootSession",
-            EndLootSession: "btn-EndLootSession",
-            SelectLootBoss_Kazzak: "btn-SelectLootBossKazzak",
-            SelectLootBoss_Azuregos: "btn-SelectLootBossAzuregos",
-            SelectLootBoss_GreenDragons: "btn-SelectLootBossGreenDragons",
-            SelectLootBoss_Lethon: "btn-SelectLootBossLethon",
-            SelectLootBoss_Emriss: "btn-SelectLootBossEmriss",
-            SelectLootBoss_Taerar: "btn-SelectLootBossTaerar",
-            SelectLootBoss_Ysondre: "btn-SelectLootBossYsondre",
-            CloseLootError: "btn-CloseLootError",
-            LootGuildSelectionSelected: "btn-LootGuildSelectionSelected",
-            LootGuildSelection: "slct-LootGuild",
-            LootGuildAttendance: "btn-LootGuildAttendance",
-            TxtGuildAttendance: "txt-GuildAttendance",
-            LootBackToMainView: "btn-BackToMainView",
-            StartNewLootSession: "btn-StartNewLootSession",
         }
     },
     Bosses: {

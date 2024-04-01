@@ -2,10 +2,12 @@
   "dependencies": {
     "@discordjs/builders": "^1.7.0",
     "@discordjs/rest": "^2.2.0",
+    "@google-cloud/local-auth": "^2.1.0",
     "discord-api-types": "^0.37.75",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "googleapis": "^105.0.0",
     "hashmap": "^2.4.0"
   },
   "name": "sod_world_boss_scouter",
@@ -17,5 +19,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattS8/SOD_World_Boss_Scouter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MattS8/SOD_World_Boss_Scouter/issues"
+  },
+  "homepage": "https://github.com/MattS8/SOD_World_Boss_Scouter#readme"
 }

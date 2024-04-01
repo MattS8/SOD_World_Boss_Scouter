@@ -1,6 +1,6 @@
 const Config = require('../../config.js');
-const InputName = Config.Enums.InputName;
-const CommandType = Config.Enums.CommandType;
+const InputName = require('../../constants.js').Enums.InputName;
+const CommandType = require('../../constants.js').Enums.CommandType;
 const LootSessionViews = require('../../views/lootSessionViews.js');
 
 function showMainView(session, interaction) {

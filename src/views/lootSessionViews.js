@@ -1,7 +1,7 @@
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, ButtonBuilder, messageLink, TextInputBuilder, Message, TextInputStyle } = require('discord.js');
 const Config = require('../config.js');
 const { StringSelectMenuOptionBuilder } = require('@discordjs/builders');
-const InputName = Config.Enums.InputName;
+const InputName = require('../constants.js').Enums.InputName;
 const Guilds = Config.Guilds;
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
         buttonRow: new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId(Config.Enums.InputName.StartLootSession)
+                    .setCustomId(InputName.StartLootSession)
                     .setLabel('Start')
                     .setEmoji('\➡️')
                     .setStyle(ButtonStyle.Primary)
