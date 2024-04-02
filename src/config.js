@@ -69,13 +69,9 @@ module.exports = {
               }
         },
         Attendance: {
-            name: "Attendance (Test)",
-            id: "13eESta2AZV2vlHbRk_s5YbDCoAPycTPjUkUTo_ltCZE",
+            name: "SoD World Boss Scouting",
+            id: "1tW2dVGE8wVtRIzoZhuXce64ZWcOhsovFxkG_P07KxuA",
             separator: "\n",
-            headerRows: 3,
-            startColumn: 2,
-            columnsBeforeBosses: 3,
-            columnsAfterBosses: 2
         },
         Calendar: {
             id: "1HNxhS4tJ8VEz6DQ-swnLdGEPYV0GI-byyE_dPzs0bxM",
@@ -172,5 +168,8 @@ module.exports = {
                 bossSpotted: "btnBossSpottedEmriss"
             }
         }
-    }
+    },
+    SummonLocations: [
+        'Feralas', 'Azshara', 'Duskwood', 'Hinterlands', 'Badlands'
+    ]
 }

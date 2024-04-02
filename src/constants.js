@@ -22,5 +22,14 @@ module.exports = {
             LootBackToMainView: "btn-BackToMainView",
             StartNewLootSession: "btn-StartNewLootSession",
         }
+    },
+    ScoutingSheet: {
+        headerLength: 3,
+        totalHoursStartCol: 'F',
+        bossHoursStartCol: 'I',
+        bossHoursEndCol: 'N',
+        totalHoursEndCol: 'O',
+        summonersStartCol: 'Q',
+        summonersEndCol: 'U'
     }
 }

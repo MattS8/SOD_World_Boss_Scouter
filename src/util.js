@@ -47,5 +47,26 @@ module.exports = {
       return bossList[0];
     }
 
+  },
+
+  convertSheetDataToScoutData: (sheetData, headerRow) => {
+    const scoutData = {}
+    let index = 0;
+    for (header of headerRow) {
+      scoutData[header] = sheetData[index];
+      ++index;
+    }
+
+    return scoutData;
+  },
+
+  convertScoutObjToSheetData: (scoutObj, headerRow) => {
+    let sheetRow = []
+
+    for (header of headerRow) {
+      sheetRow.push(scoutObj[header])
+    }
+
+    return sheetRow;
   }
 }

@@ -15,7 +15,7 @@
   "version": "1.0.0",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/MattS8/SOD_World_Boss_Scouter/issues"
   },
-  "homepage": "https://github.com/MattS8/SOD_World_Boss_Scouter#readme"
+  "homepage": "https://github.com/MattS8/SOD_World_Boss_Scouter#readme",
+  "devDependencies": {
+    "mocha": "^10.4.0"
+  }
 }
