@@ -148,7 +148,7 @@ function Init(googleAuth) {
   const testBossScouting1 = {
     Azuregos: 100,
     Kazzak: 400,
-    Lethon: 3
+    "Duskwood Dragon": 3
   }
   DiscordClient.GoogleSheetFunctions.updateScout(gAuth, testUserWing, 'SCIENCE', testBossScouting1);
 }

@@ -160,11 +160,15 @@ async function getAllScoutData(auth, guildTag) {
 async function getHeaderRow(auth, guildTag) {
     const funcName = "GetHeaderRow";
     const sheets = google.sheets({ version: "v4", auth: auth });
-    const headerRowNum = Constants.ScoutingSheet.headerLength-1;
+    const headerRowNum = Constants.ScoutingSheet.headerLength-2;
     const headerRange = `${guildTag}!${Constants.ScoutingSheet.totalHoursStartCol}${headerRowNum}:${Constants.ScoutingSheet.totalHoursEndCol}${headerRowNum}`;
 
-    console.log(headerRange)
     const result = await sheets.spreadsheets.values.get({ spreadsheetId: AttendanceSheetId, range: headerRange});
+
+    // Need to edit the result because merged cells suck
+    result.data.values[0][0] = "Discord Username";
+    result.data.values[0][1] = "Discord Display Name";
+    result.data.values[0][2] = "Discord ID";
 
     if (!result || result.status != 200) {
       console.error(`${funcName}: Unable to fetch header row...`);
@@ -186,11 +190,11 @@ async function updateScout(auth, user, guildTag, addedBossTimes) {
   const funcName = "UpdateScout";
   const sheets = google.sheets({ version: "v4", auth: auth });
 
+  // Find existing scout data
   const allScoutData = await getAllScoutData(auth, guildTag);
   let scoutIndex = 0;
   let scoutData = allScoutData.filter((data, index) => {
     if (data[2] === user.id) {
-      console.log("DATA: " + JSON.stringify(data));
       scoutIndex = index;
       return true;
     } else {
@@ -198,7 +202,7 @@ async function updateScout(auth, user, guildTag, addedBossTimes) {
     }
   });
   if (!scoutData || scoutData.length === 0) {
-    console.log("ADDING NEW")
+    // Add a new scout entry
     addNewScoutMemberRow(
       auth,
       guildTag,
@@ -208,15 +212,22 @@ async function updateScout(auth, user, guildTag, addedBossTimes) {
       addedBossTimes
     );
   } else {
+    // Update existing scout
     const headerRow = await getHeaderRow(auth, guildTag);
-    console.log(`HeaderRow: ${headerRow}`)
+    
+    // Convert to a map object using the header values so that we can dynamically add any boss values
     let scoutObj = Utils.convertSheetDataToScoutData(scoutData[0], headerRow)
-    console.log(`ScoutObj: ${JSON.stringify(scoutObj)}`)
     for (boss of Object.keys(Config.Bosses)) {
-      scoutObj[`${boss} Time (hours)`] += addedBossTimes[boss] || 0;
+      scoutObj[`${boss} Time (hours)`] = Number(scoutObj[`${boss} Time (hours)`]) + Number(addedBossTimes[boss] || 0);
     }
 
+    // Find the row of the existing scout
     const changedRow = scoutIndex + Constants.ScoutingSheet.headerLength;
+
+    // Change the 'Total' cell back to the sum equation
+    scoutObj['Total'] = `=SUM(${Constants.ScoutingSheet.bossHoursStartCol}${changedRow}:${Constants.ScoutingSheet.bossHoursEndCol}${changedRow})`
+
+    // Update the sheet
     const hoursRange = `${guildTag}!${Constants.ScoutingSheet.totalHoursStartCol}${changedRow}:${Constants.ScoutingSheet.totalHoursEndCol}${changedRow}`;
     const hoursRes = await sheets.spreadsheets.values.update({
       spreadsheetId: AttendanceSheetId,
@@ -227,6 +238,7 @@ async function updateScout(auth, user, guildTag, addedBossTimes) {
       },
     });
 
+    // Catch any errors
     if (!hoursRes || hoursRes.status != 200) {
       console.error(`${funcName}: Unable to update range for ${user.displayName || 'NULL DISPLAYNAME'}!`)
     }
