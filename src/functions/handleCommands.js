@@ -32,7 +32,7 @@ module.exports = (DiscordClient) => {
                         console.log(`\t- Initialized ${folder}/${file} (ButtonCommand)`);
                         break;
                     default:
-                        console.error(`Unkown command type: ${command.commandType}`)
+                        console.error(`ERROR (${command.inputName || `${command.inputNames[0]} +${command.inputNames.length - 1} others...`}): Unkown command type: ${command.commandType}`)
                 }
             }
         }

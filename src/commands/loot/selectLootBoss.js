@@ -23,13 +23,6 @@ function interact(interaction, DiscordClient) {
         return
     }
 
-    // This is a hacky workaround because I can't seem to figure out how to properly
-    // stop buttons from reporting that their "interaction failed" without sending 
-    // a dummy reply.
-    try {
-        // interaction.reply({ content: " ", fetchReply: false }).catch(console.error)
-    } catch (e) { }
-
     switch (interaction.customId) {
         case InputName.SelectLootBoss_Azuregos:
             bossSelected(interaction, session, Config.Bosses.Azuregos.name)

@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./constants.js').Enums.InputName;
 
 module.exports = {
     General: {
@@ -87,6 +88,7 @@ module.exports = {
         Azuregos: {
             name: "Azuregos",
             type: "Blue Dragon",
+            zone: "Azshara",
             color: 0x0E44CE,
             channel: '1220945685424115782',
             btnNames: {
@@ -98,6 +100,7 @@ module.exports = {
         Kazzak: {
             name: "Doom Lord Kazzak",
             type: "Demon",
+            zone: "Blasted Lands",
             color: 0x8E3434,
             channel: '1220945723592544318',
             btnNames: {
@@ -109,6 +112,7 @@ module.exports = {
         Duskwood: {
             name: "Duskwood Dragon",
             type: "Green Dragon",
+            zone: "Duskwood",
             color: 0x348E47,
             channel: '1220945752692625488',
             btnNames: {
@@ -120,6 +124,7 @@ module.exports = {
         Feralas: {
             name: "Feralas Dragon",
             type: "Green Dragon",
+            zone: "Feralas",
             color: 0x348E47,
             channel: '1220945812113195129',
             btnNames: {
@@ -131,6 +136,7 @@ module.exports = {
         Hinterlands: {
             name: "Hinterlands Dragon",
             type: "Green Dragon",
+            zone: "Hinterlands",
             color: 0x348E47,
             channel: '1220945782019199037',
             btnNames: {
@@ -142,6 +148,7 @@ module.exports = {
         Ashenvale: {
             name: "Ashenvale Dragon",
             type: "Green Dragon",
+            zone: "Ashenvale",
             color: 0x348E47,
             channel: '1220945852525318274',
             btnNames: {

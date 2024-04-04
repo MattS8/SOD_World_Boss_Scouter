@@ -1,8 +1,9 @@
 const Config = require('../../config.js');
 const CommandType = require('../../constants.js').Enums.CommandType;
 const Inputnames = Object.keys(Config.Scouting).map(key => Config.Scouting[key].btnNames.stopScouting);
+const DiscordClient = require('../../main.js').DiscordClient;
 
-function interact(interaction, DiscordClient) {
+function interact(interaction) {
     const ScoutSessions = DiscordClient.getScoutSessions();
     const selectedSession = Object.values(Config.Scouting).filter((s) => s.btnNames.stopScouting === interaction.customId)[0]
     const session = ScoutSessions.get(selectedSession.name);
