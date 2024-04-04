@@ -3,6 +3,7 @@ const CommandType = require('../../constants.js').Enums.CommandType;
 const Inputnames = Object.keys(Config.Scouting).map(key => Config.Scouting[key].btnNames.scouting);
 const Utils = require('../../util.js');
 const ScoutSessionViews = require('../../views/scoutSessionViews.js');
+const DiscordClient = require('../../main.js').DiscordClient;
 
 async function interact(interaction) {
     const ScoutSessions = DiscordClient.getScoutSessions();
