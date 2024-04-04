@@ -11,7 +11,7 @@ module.exports = {
                 .setDescription(descriptionText + '\u200B');
             for (key of scoutSession.currentScouts.keys()) {
                 let scout = scoutSession.currentScouts.get(key);
-                mainViewEmbed.addFields({ name: `<${scout.guildName}> ${scout.user.displayName}`, value: `Started at: <t:${scout.startTime}:t>`, inline: true })
+                mainViewEmbed.addFields({ name: `<${scout.guildTag}> ${scout.user.displayName}`, value: `Started at: <t:${scout.startTime}:t>`, inline: true })
             }
 
             return mainViewEmbed
