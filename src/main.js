@@ -1,4 +1,5 @@
 // Note: Make sure to add proper credentials to your .env!
+//      SEND_INITIAL_MESSAGES = true/false
 //      DISCORD_TOKEN = '<token>'
 //      GOOGLE_CREDENTIALs = '<credentials>'
 //      GOOGLE_API_KEY = '<key>'
@@ -121,6 +122,7 @@ let gAuth = null;
 
 // -- Initialization -- //
 function Init(googleAuth) {
+  DiscordClient.GoogleSheetFunctions = {};
   gAuth = googleAuth;
   // Link bot functions to DiscordClient object
   const BotFunctions = fs
@@ -150,7 +152,6 @@ function Init(googleAuth) {
     Kazzak: 400,
     "Duskwood Dragon": 3
   }
-  DiscordClient.GoogleSheetFunctions.updateScout(gAuth, testUserWing, 'SCIENCE', testBossScouting1);
 }
 
 // Make sure to run Initialization or else the bot won't work!
@@ -158,5 +159,5 @@ googleAuthorize(Init);
 
 module.exports = {
     DiscordClient: DiscordClient,
-    GoogleAuth: gAuth
+    GetGoogleAuth: () => {return gAuth;}
 }

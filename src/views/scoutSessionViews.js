@@ -8,11 +8,9 @@ module.exports = {
             let mainViewEmbed = new EmbedBuilder()
                 .setColor(boss.color)
                 .setTitle(`${boss.name} Scouting:`)
-                .setDescription(descriptionText);
+                .setDescription(descriptionText + '\u200B');
             for (key of scoutSession.currentScouts.keys()) {
                 let scout = scoutSession.currentScouts.get(key);
-                // console.log(`${JSON.stringify(scout)}`)
-                console.log(`Adding ${scout.user.displayName} at time ${scout.startTime}`)
                 mainViewEmbed.addFields({ name: `<${scout.guildName}> ${scout.user.displayName}`, value: `Started at: <t:${scout.startTime}:t>`, inline: true })
             }
 
@@ -32,7 +30,7 @@ module.exports = {
     ScoutingOptions: {
         getEmbed: (boss) => new EmbedBuilder()
             .setColor(boss.color)
-            .setTitle(`${boss.name}: Scouting Options`),
+            .setTitle(`Scouting Options:`),
         getButtonRow: (boss) => new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()

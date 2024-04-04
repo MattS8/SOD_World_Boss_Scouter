@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Config = require('./config.js');
 const Guilds = Config.Guilds;
+const DiscordClient = require('./main.js').DiscordClient;
 
 
 module.exports = {
@@ -16,7 +17,6 @@ module.exports = {
           try {
             const displayName = member ? member.displayName : "_none_";
             const guildName = displayName.substring(1, displayName.indexOf('>')).toLowerCase();
-            
             for (const guild of Guilds) {
               if (guild.name.toLowerCase() === guildName) {
                 callback(guild)
@@ -49,11 +49,24 @@ module.exports = {
 
   },
 
+  getScoutBoss: (scoutBossName) => {
+    const bossList = Object.values(Config.Scouting).filter((boss) => boss.name === scoutBossName)
+    if (bossList.length == 1) {
+      return bossList[0];
+    } else if (bossList.length == 0) {
+      console.error(`ERROR: Unable to get scout boss with name: '${scoutBossName}'!`);
+      return Object.values(Config.Scouting)[0];
+    } else {
+      console.warn(`WARNING: Found multiple instances of scout boss with name: '${scoutBossName}'!`);
+      return bossList[0];
+    }
+  },
+
   convertSheetDataToScoutData: (sheetData, headerRow) => {
     const scoutData = {}
     let index = 0;
     for (header of headerRow) {
-      scoutData[header] = sheetData[index];
+      scoutData[header] = sheetData[index] || '';
       ++index;
     }
 
@@ -68,5 +81,15 @@ module.exports = {
     }
 
     return sheetRow;
+  },
+
+  getChannelFromId: async (channelId) => {
+    try {
+      const channel = await DiscordClient.channels.fetch(channelId);
+      return channel;
+    } catch (err) {{
+        console.error('Error fetching channel: ', err);
+        return null;
+    }}
   }
 }

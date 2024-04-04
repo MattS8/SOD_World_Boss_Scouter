@@ -27,22 +27,22 @@ function execute(clientInfo, DiscordClient) {
             .catch(console.error);
 
         // Boss Scouting Channels
-        Object.values(Config.Bosses).forEach((boss) => {
-            DiscordClient.channels.fetch(boss.channels.scouting)
+        Object.values(Config.Scouting).forEach((boss) => {
+            DiscordClient.channels.fetch(boss.channel)
                 .then(channel => {
                     channel.send({
-                        embeds: [ScoutSessionViews.MainView.getEmbed(boss, DiscordClient.getScoutSessions(DiscordClient).get(boss.name))],
+                        embeds: [ScoutSessionViews.MainView.getEmbed(boss, DiscordClient.getScoutSessions().get(boss.name))],
                         components: [ScoutSessionViews.MainView.getButtonRow(boss)],
                         fetchReply: false
                     }).then((message) => {
-                        DiscordClient.getScoutSessions(DiscordClient).get(boss.name).message = message
+                        DiscordClient.getScoutSessions().get(boss.name).message = message
                     });
                 })
                 .catch(console.error);
         });
     } else {
-        Object.values(Config.Bosses).forEach((boss) => {
-            DiscordClient.channels.fetch(boss.channels.scouting)
+        Object.values(Config.Scouting).forEach((boss) => {
+            DiscordClient.channels.fetch(boss.channel)
                 .then(channel => {
                     channel.messages.fetch().then(msgs => {
                         let scoutMessage = undefined
@@ -54,7 +54,7 @@ function execute(clientInfo, DiscordClient) {
                         // console.log(`messages: ${JSON.stringify(msgs)} || ${DiscordClient.user.id}\n\n`)
                         // const scoutMessage = msgs.embeds?.filter(message => message.author.id == `${DiscordClient.user.id}`)[0]
                         if (scoutMessage) {
-                            DiscordClient.getScoutSessions(DiscordClient).get(boss.name).message = scoutMessage
+                            DiscordClient.getScoutSessions().get(boss.name).message = scoutMessage
                         } else {
                             console.error(`ERROR: Unable to find initial message for scouting ${boss.name}. Did you forget to enable initial message in the .env file?`);
                         }

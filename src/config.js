@@ -33,9 +33,9 @@ module.exports = {
             loot: {
                 id: "1219320056274616321"
             },
-            logs: {
-                id: "1219320225925697606"
-            }
+            scoutLogs: {
+                id: "1225260944113008652"
+            },
         }
     },
     Guilds: [
@@ -83,89 +83,121 @@ module.exports = {
             id: ""
         }
     },
-    Bosses: {
+    Scouting: {
         Azuregos: {
             name: "Azuregos",
             type: "Blue Dragon",
             color: 0x0E44CE,
-            channels: {
-                scouting: '1220945685424115782',
-            },
+            channel: '1220945685424115782',
             btnNames: {
-                scouting: "btnScoutBossAzuregos",
-                looting: "btnSelectLootBossAzuregos",
-                stopScouting: "btnStopScoutingBossAzuregos",
-                bossSpotted: "btnBossSpottedAzuregos"
+                scouting: 'btnScoutAzuregos',
+                stopScouting: 'btnStopScoutingAzuregos',
+                bossSpotted: 'btnBossSpottedAzuregos'
             }
         },
         Kazzak: {
             name: "Doom Lord Kazzak",
             type: "Demon",
             color: 0x8E3434,
-            channels: {
-                scouting: '1220945723592544318',
-            },
+            channel: '1220945723592544318',
             btnNames: {
-                scouting: "btnScoutBossKazzak",
+                scouting: 'btnScoutKazzak',
+                stopScouting: 'btnStopScoutingKazzak',
+                bossSpotted: 'btnBossSpottedKazzak'
+            }
+        },
+        Duskwood: {
+            name: "Duskwood Dragon",
+            type: "Green Dragon",
+            color: 0x348E47,
+            channel: '1220945752692625488',
+            btnNames: {
+                scouting: 'btnScoutDuskwoodDragon',
+                stopScouting: 'btnStopScoutingDuskwoodDragon',
+                bossSpotted: 'btnBossSpottedGreenDragon'
+            }
+        },
+        Feralas: {
+            name: "Feralas Dragon",
+            type: "Green Dragon",
+            color: 0x348E47,
+            channel: '1220945812113195129',
+            btnNames: {
+                scouting: 'btnScoutFeralasDragon',
+                stopScouting: 'btnStopScoutingFeralasDragon',
+                bossSpotted: 'btnBossSpottedGreenDragon'
+            }
+        },
+        Hinterlands: {
+            name: "Hinterlands Dragon",
+            type: "Green Dragon",
+            color: 0x348E47,
+            channel: '1220945782019199037',
+            btnNames: {
+                scouting: 'btnScoutHinterlandsDragon',
+                stopScouting: 'btnStopScoutingHinterlandsDragon',
+                bossSpotted: 'btnBossSpottedGreenDragon'
+            }
+        },
+        Ashenvale: {
+            name: "Ashenvale Dragon",
+            type: "Green Dragon",
+            color: 0x348E47,
+            channel: '1220945852525318274',
+            btnNames: {
+                scouting: 'btnScoutAshenvaleDragon',
+                stopScouting: 'btnStopScoutingAshenvaleDragon',
+                bossSpotted: 'btnBossSpottedGreenDragon'
+            }
+        },
+    },
+    Bosses: {
+        Azuregos: {
+            name: "Azuregos",
+            type: "Blue Dragon",
+            color: 0x0E44CE,
+            btnNames: {
+                looting: "btnSelectLootBossAzuregos",
+            }
+        },
+        Kazzak: {
+            name: "Doom Lord Kazzak",
+            type: "Demon",
+            color: 0x8E3434,
+            btnNames: {
                 looting: "btnSelectLootBossKazzak",
-                stopScouting: "btnStopScoutingBossKazzak",
-                bossSpotted: "btnBossSpottedKazzak"
             }
         },
         Lethon: {
             name: "Lethon",
             type: "Green Dragon",
             color: 0x348E47,
-            channels: {
-                scouting: '1220945752692625488',
-            },
             btnNames: {
-                scouting: "btnScoutBossLethon",
                 looting: "btnSelectLootBossLethon",
-                stopScouting: "btnStopScoutingBossLethon",
-                bossSpotted: "btnBossSpottedLethon"
             }
         },
         Taerar: {
             name: "Taerar",
             type: "Green Dragon",
             color: 0x7D8E34,
-            channels: {
-                scouting: '1220945782019199037',
-            },
             btnNames: {
-                scouting: "btnScoutBossTaerar",
                 looting: "btnSelectLootBossTaerar",
-                stopScouting: "btnStopScoutingBossTaerar",
-                bossSpotted: "btnBossSpottedTaerar"
             }
         },
         Ysondre: {
             name: "Ysondre",
             type: "Green Dragon",
             color: 0x348E34,
-            channels: {
-                scouting: '1220945852525318274',
-            },
             btnNames: {
-                scouting: "btnScoutBossYsondre",
                 looting: "btnSelectLootBossYsondre",
-                stopScouting: "btnStopScoutingBossYsondre",
-                bossSpotted: "btnBossSpottedYsondre"
             }
         },
         Emriss: {
             name: "Emriss",
             type: "Green Dragon",
             color: 0x348E6D,
-            channels: {
-                scouting: '1220945812113195129',
-            },
             btnNames: {
-                scouting: "btnScoutBossEmriss",
                 looting: "btnSelectLootBossEmriss",
-                stopScouting: "btnStopScoutingBossEmriss",
-                bossSpotted: "btnBossSpottedEmriss"
             }
         }
     },
