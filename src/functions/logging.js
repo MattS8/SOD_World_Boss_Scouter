@@ -1,18 +1,27 @@
-const DiscordClient = require("../main.js").DiscordClient;
-const Utils = require("../util.js");
-const Config = require("../config.js");
+const DiscordClient = require('../main.js').DiscordClient
+const Utils = require('../util.js')
+const Config = require('../config.js')
 
-async function logBeginShift(scoutArea, startTime, displayName) {
+/**
+ * Logs the beginning of a shift to the log channel as definied in Config.Server.logs.scoutingLogs.
+ * @param {*} scoutArea The name of the area scouted
+ * @param {*} startTime The date time the scouting started
+ * @param {*} displayName The name of whoever started scouting
+ * @returns
+ */
+async function logBeginShift (scoutArea, startTime, displayName) {
   const channel = await Utils.getChannelFromId(
     Config.Server.channels.scoutLogs.id
-  );
-  if (!channel) return;
+  )
+  if (!channel) return
 
   channel
     .send(
-      `__**SHIFT STARTED**__:\n> **${displayName}** started scouting **${scoutArea}** at <t:${Math.round(startTime / 1000)}:t>!`
+      `__**SHIFT STARTED**__:\n> **${displayName}** started scouting **${scoutArea}** at <t:${Math.round(
+        startTime / 1000
+      )}:t>!`
     )
-    .catch((e) => {});
+    .catch(e => {})
 }
 
 /**
@@ -24,7 +33,7 @@ async function logBeginShift(scoutArea, startTime, displayName) {
  * @param {string|undefined} durationUnits This changes the units used to describe the duration
  * @returns
  */
-async function logEndShift(
+async function logEndShift (
   scoutArea,
   endTime,
   duration,
@@ -33,14 +42,14 @@ async function logEndShift(
 ) {
   const channel = await Utils.getChannelFromId(
     Config.Server.channels.scoutLogs.id
-  );
-  if (!channel) return;
+  )
+  if (!channel) return
 
   channel.send(
-    `__**SHIFT ENDED**__:\n> **${displayName}** stopped scouting **${scoutArea}** at <t:${Math.round(endTime / 1000)}:t> (Duration: ${duration} ${
-      durationUnits || "seconds"
-    })`
-  );
+    `__**SHIFT ENDED**__:\n> **${displayName}** stopped scouting **${scoutArea}** at <t:${Math.round(
+      endTime / 1000
+    )}:t> (Duration: ${duration} ${durationUnits || 'seconds'})`
+  )
 }
 
 /**
@@ -48,25 +57,25 @@ async function logEndShift(
  * @param {{}} selectedSession The config scouting info for the selected scout area
  * @param {*} spotter The displayName of the person who spotted the boss
  */
-async function logBossSpotted(selectedSession, spotter) {
+async function logBossSpotted (selectedSession, spotter) {
   const channel = await Utils.getChannelFromId(
     Config.Server.channels.scoutLogs.id
-  );
-  if (!channel) return;
+  )
+  if (!channel) return
 
   channel.send(
-    `__**BOSS SPOTTEDS**__:\n> **${spotter}** spotted **${
-      selectedSession.type == "Green Dragon"
-        ? "the Green Dragons"
+    `__**BOSS SPOTTED**__:\n> **${spotter}** spotted **${
+      selectedSession.type == 'Green Dragon'
+        ? 'the Green Dragons'
         : selectedSession.name
     }** at <t:${Math.round(new Date().getTime() / 1000)}:t>!}`
-  );
+  )
 }
 
-module.exports = (DiscordClient) => {
+module.exports = DiscordClient => {
   DiscordClient.Logging = {
     logBeginShift: logBeginShift,
     logEndShift: logEndShift,
-    logBossSpotted: logBossSpotted,
-  };
-};
+    logBossSpotted: logBossSpotted
+  }
+}

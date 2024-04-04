@@ -1,86 +1,60 @@
-const Config = require("../../config.js");
-const DiscordClient = require("../../main.js").DiscordClient;
-const Utils = require("../../util.js");
-const ScoutSessionViews = require("../../views/scoutSessionViews.js");
-const CommandType = require("../../constants.js").Enums.CommandType;
-const Inputnames = [];
-const ModalIdentifier = "_modal";
+const Config = require('../../config.js')
+const DiscordClient = require('../../main.js').DiscordClient
+const Logging = DiscordClient.Logging
+const ScoutFunctions = DiscordClient.ScoutFunctions
+const Utils = require('../../util.js')
+const ScoutSessionViews = require('../../views/scoutSessionViews.js')
+const Constants = require('../../constants.js')
+const CommandType = Constants.Enums.CommandType
+const ModalIdentifier = Constants.ModalIdentifier
+const ConfirmIdentifier = Constants.ConfirmIdentifier
+const Inputnames = []
 // Initialize input names for modals and for button presses
 for (key of Object.keys(Config.Scouting)) {
-  Inputnames.push(Config.Scouting[key].btnNames.bossSpotted);
-  Inputnames.push(
-    `${Config.Scouting[key].btnNames.bossSpotted}${ModalIdentifier}`
-  );
+  const baseID = Config.Scouting[key].btnNames.bossSpotted
+  Inputnames.push(baseID)
+  Inputnames.push(`${baseID}${ModalIdentifier}`)
+  Inputnames.push(`${baseID}${ConfirmIdentifier}`)
 }
 
-async function sendBossAlert(interaction, selectedSession, session) {
-  const channel = await Utils.getChannelFromId(Config.Server.channels.alert.id);
-  if (!channel) return;
+async function interact (interaction) {
+  if (!Inputnames.includes(interaction.customId)) {
+    const warningMsg = `Unable to find bossSpotted action with id ${interaction.customId}!`
+    console.warn(warningMsg)
+    return
+  }
 
-  channel
-    .send({
-      embeds: [
-        ScoutSessionViews.BossSpotted.getEmbed(
-          selectedSession,
-          session.partyLeader
-        ),
-      ],
-    })
-    .then(() => {interaction?.deferUpdate();})
-    .catch((error) => console.error(`Failed to send boss alert:\n${error}`));
-}
-
-async function showModal(interaction, selectedSession) {
-  interaction
-    .showModal(
-      ScoutSessionViews.BossSpotted.modal(
-        selectedSession,
-        `${interaction.customId}${ModalIdentifier}`
-      )
-    )
-    .catch((error) =>
-      console.error(`Failed to show BossSpotted modal!\n${error}`)
-    );
-}
-
-async function interact(interaction) {
-  if (Inputnames.includes(interaction.customId)) {
-    const ScoutSessions = DiscordClient.getScoutSessions();
-    if (interaction.customId.includes(ModalIdentifier)) {
-        if (!interaction.components[0]?.components[0]?.value) {
-            console.error("Party leader input error!");
-            return;
-        }
-
-      const fltr = (s) =>
-        `${s.btnNames.bossSpotted}${ModalIdentifier}` === interaction.customId;
-      const selectedSession = Object.values(Config.Scouting).filter(fltr)[0];
-      const session = ScoutSessions.get(selectedSession.name);
-      session.partyLeader = interaction.components[0].components[0].value;
-      if (!session.IsUp) {
-        sendBossAlert(interaction, selectedSession, session);
-        DiscordClient.Logging.logBossSpotted(selectedSession, interaction.member.displayName);
-        session.IsUp = true
-        console.log("TODO: Set timer to check if boss has been marked as killed. If not, send a reminder to the person who spotted to mark as killed.");
-      }
-      else
-        console.warn(
-          `Warning: Attempted to trigger boss spotted for ${selectedSession.name}, however it was previously triggered.`
-        );
-    } else {
-      const fltr = (s) => s.btnNames.bossSpotted === interaction.customId;
-      const selectedSession = Object.values(Config.Scouting).filter(fltr)[0];
-      showModal(interaction, selectedSession);
-    }
+  if (interaction.customId.includes(ModalIdentifier)) {
+    // Boss info inputted
+    ScoutFunctions.processBossSpottedInfo(interaction)
+  } else if (
+    interaction.customId.includes(ConfirmIdentifier) &&
+    interaction.components[1].components[0].value?.toLowerCase?.() === 'yes'
+  ) {
+    // Confirmed to resend alert
+    const fltr = s => `${s.btnNames.bossSpotted}${ConfirmIdentifier}` === interaction.customId
+    const selectedSession = Object.values(Config.Scouting).filter(fltr)[0]
+    const session = ScoutFunctions.getScoutSessions().get(selectedSession.name)
+    session.partyLeader = interaction.components[0].components[0].value
+    ScoutFunctions.sendBossAlert(interaction)
   } else {
-    console.warn(
-      `Unable to find bossSpotted action with id ${interaction.customId}!`
-    );
+    // Boss spotted button clicked
+    const fltr = s => s.btnNames.bossSpotted === interaction.customId
+    const selectedSession = Object.values(Config.Scouting).filter(fltr)[0]
+    const session = ScoutFunctions.getScoutSessions().get(selectedSession.name)
+    if (session.IsUp) {
+      // Already spotted so we need to confirm to send another alert
+      const warningMsg = `Warning: Attempted to trigger boss spotted for ${selectedSession.name}, however it was previously triggered.`
+      console.warn(warningMsg)
+      ScoutFunctions.showBossConfirmModal(interaction, selectedSession)
+    } else {
+      ScoutFunctions.fetchBossSpottedInfo(interaction)
+    }
   }
 }
 
 module.exports = {
   inputNames: Inputnames,
   interact: interact,
-  commandType: CommandType.ButtonCommand,
-};
+  commandType: CommandType.ButtonCommand
+}
