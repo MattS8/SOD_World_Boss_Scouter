@@ -4,7 +4,7 @@ const Inputnames = Object.keys(Config.Scouting).map(key => Config.Scouting[key].
 const Utils = require('../../util.js');
 const ScoutSessionViews = require('../../views/scoutSessionViews.js');
 
-async function interact(interaction, DiscordClient) {
+async function interact(interaction) {
     const ScoutSessions = DiscordClient.getScoutSessions();
     const selectedSession = Object.values(Config.Scouting).filter((scoutArea) => scoutArea.btnNames.scouting === interaction.customId)[0]
     const session = ScoutSessions.get(selectedSession.name);
@@ -34,6 +34,7 @@ async function interact(interaction, DiscordClient) {
             const startTime = 
             session.currentScouts.set(interaction.user.id, {
                 user: interaction.user,
+                member: interaction.member,
                 guildTag: userGuild.tag,
                 guildColor: userGuild.color,
                 startTime: Math.round(new Date().getTime() / 1000),
